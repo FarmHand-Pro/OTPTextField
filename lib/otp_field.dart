@@ -205,25 +205,17 @@ class _OTPTextFieldState extends State<OTPTextField> {
           errorStyle: const TextStyle(height: 0, fontSize: 0),
         ),
         onChanged: (String str) {
-          if (str.length > 1) {
+          if (str.length == widget.length) {
             _handlePaste(str);
             return;
           }
 
-          // Check if the current value at this position is empty
+          // Check if the new value at this position is empty
           // If it is move focus to previous text field.
           if (str.isEmpty) {
             if (index == 0) return;
             _focusNodes[index]!.unfocus();
             _focusNodes[index - 1]!.requestFocus();
-          }
-
-          // Check if the current value at this position is not empty, 
-          // If it is move focus to next text field.
-          if (str.isNotEmpty) {
-            if (index == widget.length - 1) return;
-            _focusNodes[index]!.unfocus();
-            _focusNodes[index + 1]!.requestFocus();
           }
 
           // Update the current pin
