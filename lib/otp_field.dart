@@ -186,6 +186,7 @@ class _OTPTextFieldState extends State<OTPTextField> {
         textAlign: TextAlign.center,
         style: widget.style,
         inputFormatters: widget.inputFormatter,
+        maxLength: 1,
         focusNode: _focusNodes[index],
         obscureText: widget.obscureText,
         decoration: InputDecoration(
@@ -216,6 +217,14 @@ class _OTPTextFieldState extends State<OTPTextField> {
             if (index == 0) return;
             _focusNodes[index]!.unfocus();
             _focusNodes[index - 1]!.requestFocus();
+          }
+
+          // Check if the current value at this position is not empty, 
+          // If it is move focus to next text field.
+          if (str.isNotEmpty) {
+            if (index == widget.length - 1) return;
+            _focusNodes[index]!.unfocus();
+            _focusNodes[index + 1]!.requestFocus();
           }
 
           // Update the current pin
